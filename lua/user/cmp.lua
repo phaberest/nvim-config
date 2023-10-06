@@ -91,8 +91,8 @@ function M.config()
     mapping = cmp.mapping.preset.insert {
       ["<C-k>"] = cmp.mapping.select_prev_item(),
       ["<C-j>"] = cmp.mapping.select_next_item(),
-      ["<C-b>"] = cmp.mapping(cmp.mapping.scroll_docs(-1), { "i", "c" }),
-      ["<C-f>"] = cmp.mapping(cmp.mapping.scroll_docs(1), { "i", "c" }),
+      ["<C-b>"] = cmp.mapping(cmp.mapping.scroll_docs(-4), { "i", "c" }),
+      ["<C-f>"] = cmp.mapping(cmp.mapping.scroll_docs(4), { "i", "c" }),
       ["<C-Space>"] = cmp.mapping(cmp.mapping.complete(), { "i", "c" }),
       ["<C-e>"] = cmp.mapping {
         i = cmp.mapping.abort(),
@@ -145,14 +145,14 @@ function M.config()
         return vim_item
       end,
     },
-    sources = {
+    sources = cmp.config.sources({
       { name = "codeium" },
       { name = "nvim_lsp" },
       { name = "nvim_lua" },
       { name = "luasnip" },
       { name = "buffer" },
       { name = "path" },
-    },
+    }),
     confirm_opts = {
       behavior = cmp.ConfirmBehavior.Replace,
       select = false,
@@ -163,6 +163,9 @@ function M.config()
     },
     experimental = {
       ghost_text = true,
+    },
+    completion = {
+      completeopt = "menu,menuone,preview,noselect",
     },
   }
 end

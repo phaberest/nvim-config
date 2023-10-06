@@ -14,6 +14,7 @@ M.servers = {
   "sqlls",
   "tailwindcss",
   "volar",
+  "svelte",
   "emmet_ls",
 }
 

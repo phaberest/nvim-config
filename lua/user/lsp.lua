@@ -2,11 +2,15 @@ local M = {
   "neovim/nvim-lspconfig",
   commit = "649137cbc53a044bffde36294ce3160cb18f32c7",
   lazy = false,
-  event = { "BufReadPre" },
+  event = { "BufReadPre", "BufNewFile" },
   dependencies = {
     {
       "hrsh7th/cmp-nvim-lsp",
       commit = "0e6b2ed705ddcff9738ec4ea838141654f12eeef",
+    },
+    {
+      "antosha417/nvim-lsp-file-operations",
+      config = true,
     },
     {
       "SmiteshP/nvim-navbuddy",
@@ -62,7 +66,7 @@ function M.config()
       bufnr,
       "n",
       "gr",
-      "<cmd>lua vim.lsp.buf.references()<CR>",
+      "<cmd>Telescope lsp_references<cr>",
       { noremap = true, silent = true, desc = "GoTo references" }
     )
     keymap(
@@ -143,6 +147,7 @@ function M.config()
   -- Emmet
   lspconfig.emmet_ls.setup {
     capabilities = capabilities,
+    on_attach = on_attach,
     filetypes = {
       "css",
       "html",

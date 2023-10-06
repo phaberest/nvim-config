@@ -2,6 +2,12 @@ local M = {
   "nvim-lualine/lualine.nvim",
   commit = "0050b308552e45f7128f399886c86afefc3eb988",
   event = { "VimEnter", "InsertEnter", "BufReadPre", "BufAdd", "BufNew", "BufReadPost" },
+  dependencies = {
+    {
+      "famiu/bufdelete.nvim",
+      commit = "8933abc09df6c381d47dc271b1ee5d266541448e",
+    },
+  },
 }
 
 function M.config()
@@ -30,19 +36,20 @@ function M.config()
     cond = hide_in_width,
   }
 
-  local filetype = {
-    "filetype",
-    icons_enabled = false,
-  }
+  -- local filetype = {
+  --   "filetype",
+  --   icons_enabled = false,
+  -- }
 
-  local location = {
-    "location",
-    padding = 0,
-  }
+  -- local location = {
+  --   "location",
+  --   padding = 0,
+  -- }
 
   local spaces = function()
     return "spaces: " .. vim.api.nvim_buf_get_option(0, "shiftwidth")
   end
+
   lualine.setup {
     options = {
       globalstatus = true,
@@ -54,12 +61,22 @@ function M.config()
       always_divide_middle = true,
     },
     sections = {
-      lualine_a = { "mode" },
-      lualine_b = { "branch" },
-      lualine_c = { diagnostics },
-      lualine_x = { diff, spaces, "encoding", filetype },
-      lualine_y = { location },
-      lualine_z = { "progress" },
+      lualine_a = {
+        {
+          'buffers',
+          use_mode_colors = true,
+          symbols = {
+            modified = '•',
+            alternate_file = '',
+            directory = '',
+          },
+        }
+      },
+      lualine_b = {},
+      lualine_c = {},
+      lualine_x = { diagnostics, "branch", diff },
+      lualine_y = { spaces, "progress" },
+      lualine_z = { "mode" },
     },
   }
 end
