@@ -1,6 +1,5 @@
 local M = {
   "nvim-lualine/lualine.nvim",
-  commit = "0050b308552e45f7128f399886c86afefc3eb988",
   event = { "VimEnter", "InsertEnter", "BufReadPre", "BufAdd", "BufNew", "BufReadPost" },
   dependencies = {
     {
@@ -36,11 +35,6 @@ function M.config()
     cond = hide_in_width,
   }
 
-  -- local filetype = {
-  --   "filetype",
-  --   icons_enabled = false,
-  -- }
-
   -- local location = {
   --   "location",
   --   padding = 0,
@@ -57,26 +51,59 @@ function M.config()
       theme = "auto",
       component_separators = { left = "", right = "" },
       section_separators = { left = "", right = "" },
-      disabled_filetypes = { "alpha", "dashboard" },
+      disabled_filetypes = { "alpha", "dashboard", "[No Name]", "Telescope", "NvimTree" },
       always_divide_middle = true,
     },
     sections = {
       lualine_a = {
         {
-          'buffers',
-          use_mode_colors = true,
-          symbols = {
-            modified = '•',
-            alternate_file = '',
-            directory = '',
-          },
-        }
+          "filename",
+          path = 1,
+          colored = false,
+        },
       },
       lualine_b = {},
       lualine_c = {},
-      lualine_x = { diagnostics, "branch", diff },
-      lualine_y = { spaces, "progress" },
+      lualine_x = { { "b:gitsigns_head", icon = "" }, diff },
+      lualine_y = {
+        spaces,
+        {
+          "fileformat",
+          icons_enabled = true,
+          symbols = {
+            unix = "LF",
+            dos = "CRLF",
+            mac = "CR",
+          },
+        },
+      },
       lualine_z = { "mode" },
+    },
+    tabline = {
+      lualine_a = {
+        {
+          "buffers",
+          use_mode_colors = true,
+          symbols = {
+            modified = " ●",
+            alternate_file = "",
+            directory = "",
+          },
+
+          filetype_names = {
+            NvimTree = 'NvimTree',
+            TelescopePrompt = 'Telescope',
+          },
+        },
+      },
+      lualine_b = {},
+      lualine_c = {},
+      lualine_x = { diagnostics },
+      lualine_y = {
+        { "aerial", sep = " | " },
+        "filetype",
+      },
+      lualine_z = { "progress" },
     },
   }
 end

@@ -160,6 +160,12 @@ function M.config()
     },
   }
 
+  require("lspconfig").smarty_ls.setup {
+    capabilities = capabilities,
+    on_attach = on_attach,
+    filetypes = { "smarty" },
+  }
+
   local signs = {
     { name = "DiagnosticSignError", text = "" },
     { name = "DiagnosticSignWarn", text = "" },

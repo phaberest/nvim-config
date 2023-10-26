@@ -8,6 +8,7 @@ local sections = {
   l = { desc = " LSP" },
   r = { desc = " Refactor"},
   x = { desc = " Trouble" },
+  c = { desc = "󱚠 ChatGPT" },
 }
 
 -- Standart --
@@ -67,6 +68,8 @@ maps.n["<leader>fg"] = { "<cmd>Telescope live_grep<cr>", desc = "Find words" }
 maps.n["<leader>fp"] = { "<cmd>Telescope projects<cr>", desc = "Find projects" }
 maps.n["<leader>fb"] = { "<cmd>Telescope buffers<cr>", desc = "Find buffers" }
 maps.n["<leader>fd"] = { "<cmd>Telescope diagnostics<cr>", desc = "Find diagnostics" }
+maps.n["<leader>fc"] = { "<cmd>Telescope commands<cr>", desc = "Find commands" }
+maps.n["<leader>fe"] = { "<cmd>Telescope emoji<cr>", desc = "Find emojis" }
 
 -- Git
 maps.n["<leader>g"] = sections.g
@@ -102,7 +105,7 @@ maps.n["<leader>dt"] = { "<cmd>lua require'dap'.terminate()<cr>", desc = "Termin
 
 -- Lsp
 maps.n["<leader>l"] = sections.l
-maps.n["<leader>lf"] = { "<cmd>lua vim.lsp.buf.format{ async = true }<cr>", desc = "Format file" }
+maps.n["<leader>lf"] = { "<cmd>lua require'conform'.format({ lsp_fallback = true, async = false, timeout_ms = 500})<cr>", desc = "Format file" }
 maps.n["<leader>lr"] = { "<cmd>lua vim.lsp.buf.rename()<cr>", desc = "Rename" }
 maps.n["<leader>ls"] = { "<cmd>lua vim.lsp.buf.signature_help()<cr>", desc = "Signature help" }
 maps.n["<leader>ld"] = { "<cmd>lua vim.diagnostic.open_float()<cr>", desc = "Float diagnostic" }
@@ -113,11 +116,12 @@ maps.n["<leader>lj"] = { "<cmd>LspNextDiagnostic<cr>", desc = "Next diagnostic" 
 maps.n["<leader>lk"] = { "<cmd>LspPreviousDiagnostic<cr>", desc = "Previous diagnostic" }
 maps.n["<leader>la"] = { "<cmd>lua vim.lsp.buf.code_action()<cr>", desc = "Code action" }
 maps.n["<leader>lb"] = { "<cmd>Navbuddy<cr>", desc = "Navbuddy"}
-maps.n["<leader>fr"] = { "<cmd>Telescope lsp_document_symbols<cr>", desc = "Find workspace symbols" }
-maps.n["<leader>fR"] = { "<cmd>Telescope lsp_workspace_symbols<cr>", desc = "Find workspace symbols" }
+maps.n["<leader>fr"] = { "<cmd>Telescope lsp_document_symbols<cr>", desc = "Find document symbols" }
+maps.n["<leader>fR"] = { "<cmd>Telescope lsp_dynamic_workspace_symbols<cr>", desc = "Find workspace symbols" }
 
 --- Refactor
 maps.n["<leader>r"] = sections.r
+maps.v["<leader>r"] = sections.r
 maps.n["<leader>re"] = { "<cmd>lua require('refactoring').refactor('Extract Function')<cr>", desc = "Extract function" }
 maps.n["<leader>rf"] = { "<cmd>lua require('refactoring').refactor('Extract Function To File')<cr>", desc = "Extract to file" }
 
@@ -139,5 +143,28 @@ maps.n["<leader>xd"] = { "<cmd>lua require('trouble').open('document_diagnostics
 maps.n["<leader>xl"] = { "<cmd>lua require('trouble').open('loclist')<cr>", desc = "Location list" }
 maps.n["<leader>xq"] = { "<cmd>lua require('trouble').open('quickfix')<cr>", desc = "Quickfix" }
 maps.n["gR"] = { "<cmd>lua require('trouble').open('lsp_references')<cr>", desc = "References" }
+
+--- ChatGPT
+maps.n["<leader>c"] = sections.c
+maps.v["<leader>c"] = sections.c
+maps.n["<leader>cc"] = { "<cmd>ChatGPT<CR>", desc = "ChatGPT" }
+maps.v["<leader>ce"] = { "<cmd>ChatGPTEditWithInstruction<CR>", desc = "Edit with instruction" }
+maps.n["<leader>ce"] = { "<cmd>ChatGPTEditWithInstruction<CR>", desc = "Edit with instruction" }
+maps.v["<leader>cg"] = { "<cmd>ChatGPTRun grammar_correction<CR>", desc = "Grammar Correction" }
+maps.n["<leader>cg"] = { "<cmd>ChatGPTRun grammar_correction<CR>", desc = "Grammar Correction" }
+maps.n["<leader>ct"] = { "<cmd>ChatGPTRun translate<CR>", desc = "Translate" }
+maps.v["<leader>ct"] = { "<cmd>ChatGPTRun translate<CR>", desc = "Translate" }
+maps.n["<leader>ck"] = { "<cmd>ChatGPTRun keywords<CR>", desc = "Keywords" }
+maps.v["<leader>ck"] = { "<cmd>ChatGPTRun keywords<CR>", desc = "Keywords" }
+maps.n["<leader>cd"] = { "<cmd>ChatGPTRun docstring<CR>", desc = "Docstring" }
+maps.v["<leader>cd"] = { "<cmd>ChatGPTRun docstring<CR>", desc = "Docstring" }
+    -- d = { "<cmd>ChatGPTRun docstring<CR>", "Docstring", mode = { "n", "v" } },
+    -- a = { "<cmd>ChatGPTRun add_tests<CR>", "Add Tests", mode = { "n", "v" } },
+    -- o = { "<cmd>ChatGPTRun optimize_code<CR>", "Optimize Code", mode = { "n", "v" } },
+    -- s = { "<cmd>ChatGPTRun summarize<CR>", "Summarize", mode = { "n", "v" } },
+    -- f = { "<cmd>ChatGPTRun fix_bugs<CR>", "Fix Bugs", mode = { "n", "v" } },
+    -- x = { "<cmd>ChatGPTRun explain_code<CR>", "Explain Code", mode = { "n", "v" } },
+    -- r = { "<cmd>ChatGPTRun roxygen_edit<CR>", "Roxygen Edit", mode = { "n", "v" } },
+    -- l = { "<cmd>ChatGPTRun code_readability_analysis<CR>", "Code Readability Analysis", mode = { "n", "v" } },
 
 utils.set_mappings(maps)

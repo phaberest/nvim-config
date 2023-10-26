@@ -16,6 +16,7 @@ M.servers = {
   "volar",
   "svelte",
   "emmet_ls",
+  "lemminx",
 }
 
 return M

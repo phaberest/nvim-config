@@ -6,6 +6,7 @@ return {
   dependencies = {
     "nvim-lua/plenary.nvim",
     "nvim-tree/nvim-web-devicons",
+    "xiyaowong/telescope-emoji.nvim",
     {
       "nvim-telescope/telescope-fzf-native.nvim",
       build = "make",
@@ -40,5 +41,6 @@ return {
     }
 
     require("telescope").load_extension "fzf"
+    require("telescope").load_extension "emoji"
   end,
 }
