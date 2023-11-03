@@ -28,7 +28,7 @@ maps.n["<leader>="] = { "<C-w>=", desc = "Equalize windows" }
 -- Splits
 maps.n["|"] = { "<cmd>vs<cr>", desc = "Split vertically" }
 maps.n["\\"] = { "<cmd>sp<cr>", desc = "Split horizontally" }
-maps.n["<leader>q"] = { "<cmd>close<cr>", desc = "Close current split" }
+maps.n["<leader>Q"] = { "<cmd>close<cr>", desc = "Close current split" }
 
 -- Navigate buffers
 maps.n["<S-l>"] = { "<cmd>bnext<cr>", desc = "Next buffer" }
@@ -38,7 +38,7 @@ maps.n["<S-h>"] = { "<cmd>bprevious<cr>", desc = "Previous buffer" }
 maps.n["<leader>h"] = { "<cmd>nohsearch<cr>", desc = "Clear highlights" }
 
 -- Close buffer
-maps.n["<leader>Q"] = { "<cmd>Bdelete!<cr>", desc = "Close buffer" }
+maps.n["<leader>q"] = { "<cmd>Bdelete!<cr>", desc = "Close buffer" }
 
 -- Better paste
 maps.v["p"] = { "P", desc = "Better paste" }
@@ -58,7 +58,7 @@ maps.v[">"] = { ">gv", desc = "Indent to the right" }
 -- Plugins --
 
 -- NvimTree
-maps.n["<leader>e"] = { "<cmd>NvimTreeToggle<cr>", desc = "Toggle explorer" }
+maps.n["<leader>e"] = { "<cmd>Neotree toggle<cr>", desc = "Toggle explorer" }
 
 maps.n["<leader>f"] = sections.f
 maps.n["<leader><leader>"] = { "<cmd>Telescope resume<cr>", desc = "Resume search" }

@@ -51,8 +51,12 @@ function M.config()
       theme = "auto",
       component_separators = { left = "", right = "" },
       section_separators = { left = "", right = "" },
-      disabled_filetypes = { "alpha", "dashboard", "[No Name]", "Telescope", "NvimTree" },
+      disabled_filetypes = { "alpha", "dashboard", "[No Name]", "Telescope", "NvimTree", "neo-tree" },
       always_divide_middle = true,
+    },
+    extensions = {
+      "lazy",
+      "neo-tree",
     },
     sections = {
       lualine_a = {
@@ -91,8 +95,9 @@ function M.config()
           },
 
           filetype_names = {
-            NvimTree = 'NvimTree',
-            TelescopePrompt = 'Telescope',
+            NvimTree = "NvimTree",
+            NeoTree = "NeoTree",
+            TelescopePrompt = "Telescope",
           },
         },
       },
