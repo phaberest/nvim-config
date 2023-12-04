@@ -157,6 +157,7 @@ function M.config()
       "scss",
       "typescriptreact",
       "svelte",
+      "astro",
     },
   }
 
