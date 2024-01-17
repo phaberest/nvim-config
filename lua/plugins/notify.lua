@@ -1,8 +1,10 @@
 return {
   "rcarriga/nvim-notify",
-  opts = {
-    render = "wrapped-compact",
-    stages = "slide",
-    timeout = 1000,
-  },
+  opts = function(_, opts)
+    vim.list_extend(opts, {
+      render = "wrapped-compact",
+      stages = "slide",
+      timeout = 3000,
+    })
+  end,
 }

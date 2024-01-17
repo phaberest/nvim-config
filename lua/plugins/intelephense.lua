@@ -1,0 +1,11 @@
+return {} -- disabled in favor of phpactor
+-- return {
+--   {
+--     "neovim/nvim-lspconfig",
+--     opts = {
+--       servers = {
+--         intelephense = {},
+--       },
+--     },
+--   },
+-- }

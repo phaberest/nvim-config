@@ -6,14 +6,20 @@ return {
   dependencies = {
     "nvim-lua/plenary.nvim",
     "nvim-tree/nvim-web-devicons",
-    "xiyaowong/telescope-emoji.nvim",
     {
-      "nvim-telescope/telescope-fzf-native.nvim",
-      build = "make",
+      "xiyaowong/telescope-emoji.nvim",
+      config = function()
+        require("telescope").load_extension("emoji")
+      end,
     },
-    {
-      "ahmedkhalf/project.nvim",
-    },
+  },
+  keys = {
+    { "<leader>fd", "<cmd>Telescope diagnostics<cr>", desc = "Find diagnostics" },
+    { "<leader>fk", "<cmd>Telescope commands<cr>", desc = "Find commands" },
+    { "<leader>cR", "<cmd>Telescope lsp_references<cr>", desc = "Find references" },
+    { "<leader>cw", "<cmd>Telescope lsp_workspace_symbols<cr>", desc = "Find workspace symbols" },
+    { "<leader>n", "<cmd>Telescope notify<cr>", desc = "See notifications" },
+    { "<leader>fj", "<cmd>Telescope emoji<cr>", desc = "Find emojis" },
   },
   config = function()
     local telescope = require("telescope")
@@ -21,8 +27,6 @@ return {
 
     telescope.setup({
       defaults = {
-        prompt_prefix = " ",
-        selection_caret = " ",
         path_display = { "smart" },
         file_ignore_patterns = { ".git/", "node_modules" },
         preview = {
@@ -39,8 +43,5 @@ return {
         },
       },
     })
-
-    require("telescope").load_extension("fzf")
-    require("telescope").load_extension("emoji")
   end,
 }

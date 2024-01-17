@@ -51,3 +51,7 @@ vim.opt.colorcolumn = "80,120"
 -- Globals
 vim.g.mapleader = " "
 vim.g.loaded_netrwPlugin = 0
+
+---- moonfly specific
+vim.g.moonflyCursorColor = true
+vim.g.moonflyItalics = true
