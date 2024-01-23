@@ -1,4 +1,7 @@
-# 💤 LazyVim
+### My neovim config
 
-A starter template for [LazyVim](https://github.com/LazyVim/LazyVim).
-Refer to the [documentation](https://lazyvim.github.io/installation) to get started.
+My config is based on 💤 [LazyVim](https://github.com/LazyVim/LazyVim).
+
+![The first screen I see when starting neovim](./.assets/alpha.jpg)
+
+![Telescope in my neovim config](./.assets/telescope.jpg)
