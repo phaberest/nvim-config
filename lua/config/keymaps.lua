@@ -20,3 +20,5 @@ map("n", "<leader>gd", function()
     { cwd = Util.get_root(), esc_esc = false }
   )
 end, { desc = "LazyDocker (root dir)" })
+
+map("n", "<leader>gp", "<cmd>Gitsigns preview_hunk<CR>", { desc = "Preview hunk" })
