@@ -22,3 +22,4 @@ map("n", "<leader>gd", function()
 end, { desc = "LazyDocker (root dir)" })
 
 map("n", "<leader>gp", "<cmd>Gitsigns preview_hunk<CR>", { desc = "Preview hunk" })
+map("n", "<leader>p", "p`]", { desc = "Paste with cursor at end" })
