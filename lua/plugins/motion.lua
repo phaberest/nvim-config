@@ -1,21 +1,21 @@
 return {
   {
-    "chrisgrieser/nvim-spider",
+    'chrisgrieser/nvim-spider',
     keys = {
       {
-        "w",
+        'w',
         "<cmd>lua require('spider').motion('w')<CR>",
-        mode = { "n", "o", "x" },
+        mode = { 'n', 'o', 'x' },
       },
       {
-        "b",
+        'b',
         "<cmd>lua require('spider').motion('b')<CR>",
-        mode = { "n", "o", "x" },
+        mode = { 'n', 'o', 'x' },
       },
       {
-        "e",
+        'e',
         "<cmd>lua require('spider').motion('e')<CR>",
-        mode = { "n", "o", "x" },
+        mode = { 'n', 'o', 'x' },
       },
     },
   },
