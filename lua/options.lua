@@ -37,6 +37,9 @@ vim.opt.smartcase = true
 -- Keep signcolumn on by default
 vim.opt.signcolumn = 'yes'
 
+-- Extend status bar across all windows
+vim.opt.laststatus = 3
+
 -- Decrease update time
 vim.opt.updatetime = 250
 

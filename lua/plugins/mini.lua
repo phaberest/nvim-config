@@ -105,7 +105,7 @@ return {
           end,
         },
         use_icons = true,
-        set_vim_settings = true,
+        set_vim_settings = false, -- needed to keep statusline across windows
       }
 
       local miniclue = require 'mini.clue'
