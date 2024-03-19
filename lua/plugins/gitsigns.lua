@@ -10,22 +10,57 @@ return {
     lazy = false,
     opts = {
       preview_config = {
-        border = { '', '', '', ' ' },
+        border = 'single',
+        style = 'minimal',
+        relative = 'cursor',
+        row = 0,
+        col = 1,
       },
       current_line_blame = true,
+      max_file_length = 4000, -- Disable if file is longer than this (in lines)
       current_line_blame_opts = {
         virt_text = true,
-        virt_text_pos = 'right_align', -- 'eol' | 'overlay' | 'right_align'
-        delay = 1000,
+        virt_text_pos = 'eol', -- 'eol' | 'overlay' | 'right_align'
+        delay = 500,
         ignore_whitespace = false,
       },
       signs = {
-        add = { text = '│' },
-        change = { text = '│' },
-        delete = { text = '_' },
-        topdelete = { text = '‾' },
-        changedelete = { text = '┄' },
-        untracked = { text = '┊' },
+        untracked = { --
+          hl = 'GitSignsAdd',
+          text = '┃',
+          numhl = 'GitSignsAddNr',
+          linehl = 'GitSignsAddLn',
+        },
+        add = { --
+          hl = 'GitSignsAdd',
+          text = '┃',
+          numhl = 'GitSignsAddNr',
+          linehl = 'GitSignsAddLn',
+        },
+        change = {
+          hl = 'GitSignsChange',
+          text = '┃',
+          numhl = 'GitSignsChangeNr',
+          linehl = 'GitSignsChangeLn',
+        },
+        delete = {
+          hl = 'GitSignsDelete',
+          text = '_',
+          numhl = 'GitSignsDeleteNr',
+          linehl = 'GitSignsDeleteLn',
+        },
+        topdelete = {
+          hl = 'GitSignsDelete',
+          text = '‾',
+          numhl = 'GitSignsDeleteNr',
+          linehl = 'GitSignsDeleteLn',
+        },
+        changedelete = {
+          hl = 'GitSignsDelete',
+          text = '┃',
+          numhl = 'GitSignsChangeNr',
+          linehl = 'GitSignsChangeLn',
+        },
       },
     },
   },
