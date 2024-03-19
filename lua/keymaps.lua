@@ -71,6 +71,9 @@ vim.keymap.set('n', '<leader>bd', function()
   require('mini.bufremove').delete(0, false)
 end, { desc = 'Delete buffer' })
 
+-- [[ Remaps to make coding a better experience ]]
+vim.keymap.set('n', 'p', 'p`]', { desc = 'Paste with cursor at end', remap = true })
+
 -- [[ Basic Autocommands ]]
 --  See `:help lua-guide-autocommands`
 
