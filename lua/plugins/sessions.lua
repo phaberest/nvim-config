@@ -1,10 +1,23 @@
 -- Simple lua plugin for automated session management
 return {
-  'folke/persistence.nvim',
+  'olimorris/persistence.nvim',
   event = 'VimEnter',
+  cmd = {
+    'SessionSave',
+    'SessionStart',
+    'SessionToggle',
+    'SessionLoad',
+    'SessionLoadLast',
+    'SessionLoadFromFile',
+    'SessionLoadDelete',
+  },
   opts = {
+    save_dir = vim.fn.expand(vim.fn.stdpath 'data' .. '/sessions/'), -- directory where session files are saved
     options = vim.opt_global.sessionoptions:get(),
-    autoload = true,
+    silent = false, -- silent nvim message when sourcing session file
+    use_git_branch = true, -- create session files based on the branch of the git enabled repository
+    autosave = true, -- automatically save session files when exiting Neovim
+    autoload = false, -- automatically load the session for the cwd on Neovim startup
   },
 
   -- stylua: ignore
@@ -16,7 +29,7 @@ return {
   init = function()
     vim.g.started_with_stdin = false
     vim.api.nvim_create_autocmd('StdinReadPre', {
-      group = vim.api.nvim_create_augroup('rafi_persistence', {}),
+      group = vim.api.nvim_create_augroup('phab_persistence', {}),
       callback = function()
         vim.g.started_with_stdin = true
       end,
@@ -27,7 +40,7 @@ return {
       '/private/tmp',
     }
     vim.api.nvim_create_autocmd('VimEnter', {
-      group = 'rafi_persistence',
+      group = 'phab_persistence',
       once = true,
       nested = true,
       callback = function()
@@ -59,8 +72,6 @@ return {
             vim.api.nvim_win_close(win, false)
           end
         end
-
-        require('persistence').load()
       end,
     })
   end,
