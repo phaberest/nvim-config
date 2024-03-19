@@ -169,22 +169,12 @@ return {
       --  - settings (table): Override the default settings passed when initializing the server.
       --        For example, to see the options for `lua_ls`, you could go to: https://luals.github.io/wiki/settings/
       local servers = {
-        -- clangd = {},
-        -- gopls = {},
-        -- pyright = {},
-        -- rust_analyzer = {},
-        -- ... etc. See `:help lspconfig-all` for a list of all the pre-configured LSPs
-        --
-        -- Some languages (like typescript) have entire language plugins that can be useful:
-        --    https://github.com/pmizio/typescript-tools.nvim
-        --
-
         volar = {
           filetypes = { 'javascript', 'typescript', 'vue' }, -- enable takeover mode for js files - https://github.com/johnsoncodehk/volar/discussions/471
         },
 
         tsserver = {
-          filetypes = { 'vue', 'typescript', 'javascript' },
+          filetypes = { 'vue', 'typescript', 'javascript', 'typescriptreact', 'javascriptreact' },
           init_options = {
             plugins = {
               {
@@ -254,8 +244,7 @@ return {
               completion = {
                 callSnippet = 'Replace',
               },
-              -- You can toggle below to ignore Lua_LS's noisy `missing-fields` warnings
-              -- diagnostics = { disable = { 'missing-fields' } },
+              diagnostics = { disable = { 'missing-fields' } },
             },
           },
         },

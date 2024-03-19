@@ -1,3 +1,33 @@
+local formatters = {
+  lua = { 'stylua' },
+  python = { 'autopep8' },
+  cpp = { 'clang_format' },
+  c = { 'clang_format' },
+  go = { 'gofumpt' },
+  cs = { 'csharpier' },
+  yaml = { 'yamlfmt' },
+}
+
+local prettier_ft = {
+  'css',
+  'flow',
+  'graphql',
+  'html',
+  'json',
+  'javascriptreact',
+  'javascript',
+  'less',
+  'markdown',
+  'scss',
+  'typescript',
+  'typescriptreact',
+  'vue',
+}
+
+for _, filetype in pairs(prettier_ft) do
+  formatters[filetype] = { 'prettier' }
+end
+
 return {
   { -- Autoformat
     'stevearc/conform.nvim',
@@ -13,15 +43,7 @@ return {
           lsp_fallback = not disable_filetypes[vim.bo[bufnr].filetype],
         }
       end,
-      formatters_by_ft = {
-        lua = { 'stylua' },
-        -- Conform can also run multiple formatters sequentially
-        -- python = { "isort", "black" },
-        --
-        -- You can use a sub-list to tell conform to run *until* a formatter
-        -- is found.
-        -- javascript = { { "prettierd", "prettier" } },
-      },
+      formatters_by_ft = formatters,
     },
   },
 }
