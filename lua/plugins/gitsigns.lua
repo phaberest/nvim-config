@@ -5,6 +5,7 @@ return {
       { ']h', ':Gitsigns next_hunk<CR>', desc = 'Next git hunk' },
       { '[h', ':Gitsigns prev_hunk<CR>', desc = 'Previous git hunk' },
       { '<leader>ghp', ':Gitsigns preview_hunk<CR>', desc = 'Preview git hunk' },
+      { '<leader>ghr', ':Gitsigns reset_hunk<CR>', desc = 'Reset git hunk' },
       { '<leader>gb', ':Gitsigns blame_line<CR>', desc = 'Git blame on this line' },
     },
     lazy = false,
