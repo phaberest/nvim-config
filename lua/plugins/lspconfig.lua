@@ -32,10 +32,10 @@ return {
         opts = {
           install = {
             check_on_startup = 'daily',
-            bin = vim.fn.stdpath 'data' .. '/mason/bin/phpactor',
+            bin = '~/.local/bin/phpactor',
           },
           lspconfig = {
-            enabled = true,
+            enabled = false,
             init_options = {
               ['language_server_phpstan.enabled'] = true,
               ['phpunit.enabled'] = true,
@@ -176,6 +176,30 @@ return {
         tsserver = {
           filetypes = { 'vue', 'typescript', 'javascript', 'typescriptreact', 'javascriptreact' },
           init_options = {
+            settings = {
+              javascript = {
+                inlayHints = {
+                  includeInlayEnumMemberValueHints = true,
+                  includeInlayFunctionLikeReturnTypeHints = true,
+                  includeInlayFunctionParameterTypeHints = true,
+                  includeInlayParameterNameHints = 'all', -- 'none' | 'literals' | 'all';
+                  includeInlayParameterNameHintsWhenArgumentMatchesName = true,
+                  includeInlayPropertyDeclarationTypeHints = true,
+                  includeInlayVariableTypeHints = true,
+                },
+              },
+              typescript = {
+                inlayHints = {
+                  includeInlayEnumMemberValueHints = true,
+                  includeInlayFunctionLikeReturnTypeHints = true,
+                  includeInlayFunctionParameterTypeHints = true,
+                  includeInlayParameterNameHints = 'all', -- 'none' | 'literals' | 'all';
+                  includeInlayParameterNameHintsWhenArgumentMatchesName = true,
+                  includeInlayPropertyDeclarationTypeHints = true,
+                  includeInlayVariableTypeHints = true,
+                },
+              },
+            },
             plugins = {
               {
                 name = '@vue/typescript-plugin',
@@ -232,6 +256,8 @@ return {
           },
         },
 
+        intelephense = {},
+
         terraformls = {},
         yamlls = {},
 
@@ -262,6 +288,7 @@ return {
       -- for you, so that they are available from within Neovim.
       local ensure_installed = vim.tbl_keys(servers or {})
       vim.list_extend(ensure_installed, {
+        'intelephense',
         'stylua',
         'eslint-lsp',
         'js-debug-adapter',
