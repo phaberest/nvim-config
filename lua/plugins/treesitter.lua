@@ -5,6 +5,7 @@ return {
     dependencies = {
       'nvim-treesitter/nvim-treesitter-textobjects',
       'JoosepAlviste/nvim-ts-context-commentstring',
+      'windwp/nvim-ts-autotag',
     },
     opts = {
       ensure_installed = {
@@ -67,6 +68,8 @@ return {
       ---@diagnostic disable-next-line: missing-fields
       require('nvim-treesitter.configs').setup(opts)
 
+      require('nvim-ts-autotag').setup {}
+
       -- There are additional nvim-treesitter modules that you can use to interact
       -- with nvim-treesitter. You should go explore a few and see what interests you:
       --
@@ -74,6 +77,16 @@ return {
       --    - Show your current context: https://github.com/nvim-treesitter/nvim-treesitter-context
       --    - Treesitter + textobjects: https://github.com/nvim-treesitter/nvim-treesitter-textobjects
     end,
+  },
+  {
+    'nvim-treesitter/nvim-treesitter-context',
+    event = 'VeryLazy',
+    opts = {
+      mode = 'topline',
+    },
+    keys = {
+      { '<leader>cc', '<Cmd>TSContextToggle<CR>', desc = 'Treesitter Context' },
+    },
   },
 }
 -- vim: ts=2 sts=2 sw=2 et

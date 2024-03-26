@@ -30,12 +30,15 @@ return {
       --  nvim-cmp does not ship with all sources by default. They are split
       --  into multiple repos for maintenance purposes.
       'hrsh7th/cmp-nvim-lsp',
+      'hrsh7th/cmp-nvim-lsp-signature-help',
       'hrsh7th/cmp-path',
+      'onsails/lspkind-nvim',
     },
     config = function()
       -- See `:help cmp`
       local cmp = require 'cmp'
       local luasnip = require 'luasnip'
+      local lspkind = require 'lspkind'
       luasnip.config.setup {}
 
       cmp.setup {
@@ -44,7 +47,28 @@ return {
             luasnip.lsp_expand(args.body)
           end,
         },
-        completion = { completeopt = 'menu,menuone,noinsert' },
+        completion = {
+          completeopt = 'menu,menuone',
+        },
+
+        view = {
+          entries = 'custom',
+        },
+
+        formatting = {
+          format = lspkind.cmp_format {
+            mode = 'text_icon',
+            maxwidth = 50,
+            ellipsis_char = '...',
+            symbol_map = { Codeium = '' },
+          },
+        },
+
+        window = {
+          documentation = {
+            border = 'rounded',
+          },
+        },
 
         -- For an understanding of why these mappings were
         -- chosen, you will need to read `:help ins-completion`
@@ -60,10 +84,22 @@ return {
           ['<C-b>'] = cmp.mapping.scroll_docs(-4),
           ['<C-f>'] = cmp.mapping.scroll_docs(4),
 
+          ['<C-e>'] = cmp.mapping.abort(),
+
           -- Accept ([y]es) the completion.
           --  This will auto-import if your LSP supports it.
           --  This will expand snippets if the LSP sent a snippet.
-          ['<CR>'] = cmp.mapping.confirm { select = true },
+          ['<CR>'] = cmp.mapping.confirm {
+            select = true,
+          }, -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
+          ['<S-CR>'] = cmp.mapping.confirm {
+            behavior = cmp.ConfirmBehavior.Replace,
+            select = true,
+          }, -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
+          ['<C-CR>'] = function(fallback)
+            cmp.abort()
+            fallback()
+          end,
 
           -- Manually trigger a completion from nvim-cmp.
           --  Generally you don't need this, because nvim-cmp will display
@@ -93,9 +129,12 @@ return {
           --    https://github.com/L3MON4D3/LuaSnip?tab=readme-ov-file#keymaps
         },
         sources = {
-          { name = 'nvim_lsp' },
-          { name = 'luasnip' },
-          { name = 'path' },
+          -- { name = 'nvim_lsp_signature_help', group_index = 1 },
+          { name = 'luasnip', group_index = 1 },
+          { name = 'nvim_lsp', group_index = 1 },
+          { name = 'nvim_lua', group_index = 1 },
+          { name = 'path', group_index = 2 },
+          { name = 'buffer', group_index = 2 },
         },
       }
     end,

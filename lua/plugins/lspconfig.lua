@@ -10,7 +10,7 @@ return {
       -- Useful status updates for LSP.
       -- NOTE: `opts = {}` is the same as calling `require('fidget').setup({})`
       { 'j-hui/fidget.nvim', opts = {} },
-
+      { 'b0o/schemastore.nvim', lazy = true, version = false }, -- Provides hints for json and yaml files
       -- `neodev` configures Lua LSP for your Neovim config, runtime and plugins
       -- used for completion, annotations and signatures of Neovim apis
       { 'folke/neodev.nvim', opts = {} },
@@ -18,7 +18,8 @@ return {
       {
         'dmmulroy/ts-error-translator.nvim',
         ft = 'javascript,typescript,typescriptreact,svelte',
-      }, -- Php
+      },
+      -- Php
       {
         'gbprod/phpactor.nvim',
         ft = { 'php', 'yaml' },
@@ -170,7 +171,7 @@ return {
       --        For example, to see the options for `lua_ls`, you could go to: https://luals.github.io/wiki/settings/
       local servers = {
         volar = {
-          filetypes = { 'javascript', 'typescript', 'vue' }, -- enable takeover mode for js files - https://github.com/johnsoncodehk/volar/discussions/471
+          filetypes = { 'vue' }, -- enable takeover mode for js files - https://github.com/johnsoncodehk/volar/discussions/471
         },
 
         tsserver = {
@@ -235,16 +236,54 @@ return {
         docker_compose_language_service = {},
         dockerls = {},
         html = {},
-        jsonls = {},
-        tailwindcss = {
-          filetypes = { 'html', 'elixir', 'eelixir', 'heex' },
-          init_options = {
-            userLanguages = {
-              elixir = 'html-eex',
-              eelixir = 'html-eex',
-              heex = 'html-eex',
+        jsonls = {
+          -- lazy-load schemastore when needed
+          on_new_config = function(new_config)
+            new_config.settings.json.schemas = new_config.settings.json.schemas or {}
+            vim.list_extend(new_config.settings.json.schemas, require('schemastore').json.schemas())
+          end,
+          settings = {
+            json = {
+              format = {
+                enable = true,
+              },
+              validate = { enable = true },
             },
           },
+        },
+        yamlls = {
+          -- Have to add this for yamlls to understand that we support line folding
+          capabilities = {
+            textDocument = {
+              foldingRange = {
+                dynamicRegistration = false,
+                lineFoldingOnly = true,
+              },
+            },
+          },
+          -- lazy-load schemastore when needed
+          on_new_config = function(new_config)
+            new_config.settings.yaml.schemas = vim.tbl_deep_extend('force', new_config.settings.yaml.schemas or {}, require('schemastore').yaml.schemas())
+          end,
+          settings = {
+            redhat = { telemetry = { enabled = false } },
+            yaml = {
+              keyOrdering = false,
+              format = {
+                enable = true,
+              },
+              validate = true,
+              schemaStore = {
+                -- Must disable built-in schemaStore support to use
+                -- schemas from SchemaStore.nvim plugin
+                enable = false,
+                -- Avoid TypeError: Cannot read properties of undefined (reading 'length')
+                url = '',
+              },
+            },
+          },
+        },
+        tailwindcss = {
           settings = {
             tailwindCSS = {
               experimental = {
@@ -259,7 +298,6 @@ return {
         intelephense = {},
 
         terraformls = {},
-        yamlls = {},
 
         lua_ls = {
           -- cmd = {...},

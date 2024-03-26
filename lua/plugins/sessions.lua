@@ -1,6 +1,6 @@
 -- Simple lua plugin for automated session management
 return {
-  'olimorris/persistence.nvim',
+  'folke/persistence.nvim',
   event = 'VimEnter',
   cmd = {
     'SessionSave',

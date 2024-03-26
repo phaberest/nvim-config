@@ -1,3 +1,17 @@
+function ToggleCopilot()
+  local cmp = require 'cmp'
+  local sources = cmp.get_config().sources
+  for i, source in ipairs(sources) do
+    if source.name == 'codeium' then
+      table.remove(sources, i)
+      print 'Codeium suggestions disabled.'
+      return
+    end
+  end
+  table.insert(sources, { name = 'codeium' })
+  print 'Codeium suggestions enabled.'
+end
+
 return {
   {
     'David-Kunz/gen.nvim',
@@ -30,34 +44,50 @@ return {
   },
 
   {
+    'Exafunction/codeium.nvim',
+    requires = {
+      'nvim-lua/plenary.nvim',
+      'hrsh7th/nvim-cmp',
+    },
+    keys = {
+      { '<leader>ac', '<cmd>lua ToggleCopilot()<CR>', desc = 'Toggle Codeium autocompletion' },
+    },
+    config = function()
+      require('codeium').setup {}
+    end,
+  },
+
+  {
     'piersolenski/wtf.nvim',
     dependencies = {
       'MunifTanjim/nui.nvim',
     },
-    opts = {
-      -- Default AI popup type
-      popup_type = 'popup',
-      -- An alternative way to set your API key
-      openai_api_key = vim.env.OPENAI_API_KEY,
-      -- ChatGPT Model
-      openai_model_id = 'gpt-3.5-turbo',
-      -- Send code as well as diagnostics
-      context = true,
-      -- Set your preferred language for the response
-      language = 'english',
-      -- Default search engine, can be overridden by passing an option to WtfSeatch
-      search_engine = 'google',
-      -- Callbacks
-      hooks = {
-        request_started = nil,
-        request_finished = nil,
-      },
-      -- Add custom colours
-      winhighlight = 'Normal:Normal,FloatBorder:FloatBorder',
-    },
+    setup = function()
+      require('wtf').setup {
+        -- Default AI popup type
+        popup_type = 'popup',
+        -- An alternative way to set your API key
+        openai_api_key = vim.env.OPENAI_API_KEY,
+        -- ChatGPT Model
+        openai_model_id = 'gpt-3.5-turbo',
+        -- Send code as well as diagnostics
+        context = true,
+        -- Set your preferred language for the response
+        language = 'english',
+        -- Default search engine, can be overridden by passing an option to WtfSeatch
+        search_engine = 'phind',
+        -- Callbacks
+        hooks = {
+          request_started = nil,
+          request_finished = nil,
+        },
+        -- Add custom colours
+        winhighlight = 'Normal:Normal,FloatBorder:FloatBorder',
+      }
+    end,
     keys = {
       {
-        'gw',
+        '<leader>aw',
         mode = { 'n', 'x' },
         function()
           require('wtf').ai()
@@ -66,7 +96,7 @@ return {
       },
       {
         mode = { 'n' },
-        'gW',
+        '<leader>aW',
         function()
           require('wtf').search()
         end,
