@@ -45,7 +45,7 @@ return {
 
   {
     'Exafunction/codeium.nvim',
-    requires = {
+    dependencies = {
       'nvim-lua/plenary.nvim',
       'hrsh7th/nvim-cmp',
     },
@@ -62,7 +62,7 @@ return {
     dependencies = {
       'MunifTanjim/nui.nvim',
     },
-    setup = function()
+    config = function()
       require('wtf').setup {
         -- Default AI popup type
         popup_type = 'popup',
