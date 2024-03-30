@@ -78,6 +78,16 @@ return {
       require('mini.statusline').setup {
         content = {
           active = function()
+            -- show when recording a macro
+            MiniStatusline.section_macro = function(args)
+              if MiniStatusline.is_truncated(args.trunc_width) then
+                return ''
+              end
+
+              local reg = vim.fn.reg_recording()
+              return reg == '' and reg or 'REC @' .. reg
+            end
+
             local mode, mode_hl = MiniStatusline.section_mode { trunc_width = 9000 }
             local spell = vim.wo.spell and (MiniStatusline.is_truncated(120) and 'S' or 'SPELL') or ''
             local git = MiniStatusline.section_git { trunc_width = 75 }
@@ -85,6 +95,7 @@ return {
             local filename = MiniStatusline.section_filename { trunc_width = 140 }
             local searchcount = MiniStatusline.section_searchcount { trunc_width = 75 }
             local fileinfo = MiniStatusline.section_fileinfo { trunc_width = 120 }
+            local macro = MiniStatusline.section_macro { trunc_width = 120 }
             local navic = require('nvim-navic').get_location()
             local spaces = function()
               local shiftwidth = vim.api.nvim_get_option_value('shiftwidth', { buf = 0 })
@@ -97,6 +108,7 @@ return {
               '%<',
               { hl = 'MiniStatuslineFilename', strings = { navic } },
               '%=',
+              { hl = 'MiniStatuslineModeCommand', strings = { macro } },
               { hl = 'MoreMsg', strings = { searchcount } },
               { hl = 'MiniStatuslineFilename', strings = { diagnostics } },
               { hl = mode_hl, strings = { spaces(), fileinfo } },
